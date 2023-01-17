@@ -1,5 +1,11 @@
+import logo from "./littlelemonlogo.png";
 function Header() {
-  return <header>This is an h1 heading</header>;
+  return (
+    <>
+      <header>Welcome to Little Lemon</header>
+      <img src={logo} alt="Little lemon logo" />
+    </>
+  );
 }
 
 export default Header;
