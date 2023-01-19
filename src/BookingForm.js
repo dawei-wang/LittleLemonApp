@@ -54,14 +54,16 @@ const MySelect = ({ label, ...props }) => {
 function BookingForm() {
   return (
     <>
-      <h1>Subscribe!</h1>
+      <h1>Book A Table</h1>
       <Formik
         initialValues={{
           firstName: "",
           lastName: "",
           email: "",
           acceptedTerms: false, // added for our checkbox
-          jobType: "", // added for our select
+          date: "",
+          time: "",
+          guests: "",
         }}
         validationSchema={Yup.object({
           firstName: Yup.string()
@@ -76,10 +78,22 @@ function BookingForm() {
           acceptedTerms: Yup.boolean()
             .required("Required")
             .oneOf([true], "You must accept the terms and conditions."),
-          jobType: Yup.string()
+          time: Yup.string()
             .oneOf(
-              ["designer", "development", "product", "other"],
-              "Invalid Job Type"
+              ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
+              "Invalid Time"
+            )
+            .required("Required"),
+          occasion: Yup.string()
+            .oneOf(
+              ["Birthday", "Anniversary", "Graduation"],
+              "Invalid Occasion"
+            )
+            .required("Required"),
+          guests: Yup.string()
+            .oneOf(
+              ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+              "Invalid Number of Guests"
             )
             .required("Required"),
         })}
@@ -112,12 +126,35 @@ function BookingForm() {
             placeholder="jane@formik.com"
           />
 
-          <MySelect label="Job Type" name="jobType">
-            <option value="">Select a job type</option>
-            <option value="designer">Designer</option>
-            <option value="development">Developer</option>
-            <option value="product">Product Manager</option>
-            <option value="other">Other</option>
+          <MySelect label="Time" name="time">
+            <option value="">Select a tine</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00</option>
+            <option value="22:00">22:00</option>
+          </MySelect>
+
+          <MySelect label="Occasion" name="occasion">
+            <option value="">Select an occasion</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="Graduation">Graduation</option>
+          </MySelect>
+
+          <MySelect label="Guests" name="guests">
+            <option value="">Select the number of guests</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
           </MySelect>
 
           <MyCheckbox name="acceptedTerms">

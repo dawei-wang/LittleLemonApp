@@ -1,4 +1,9 @@
+import Card from "./Card";
 function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <Card />
+    </main>
+  );
 }
 export default Home;
