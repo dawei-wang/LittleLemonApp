@@ -1,15 +1,12 @@
-import { Router, Routes, Route } from "react-router-dom";
-import Booking from "./Booking";
-import Home from "./Home";
-function Main() {
+import React from "react";
+import CardList from "./CardList";
+
+const Main = () => {
   return (
-    <Router>
-      <Routes>
-         <Route path="/home" element={<Home />}></Route>
-        <Route path="/booking" element={<Booking />}></Route>
-      </Routes>
-    </Router>
+    <main>
+      <CardList />
+    </main>
   );
-}
+};
 
 export default Main;

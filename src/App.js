@@ -1,18 +1,29 @@
 import React from "react";
-import "./App.css";
-import Header from "./Header";
-import Footer from "./Footer";
-import Main from "./Main";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./Home";
+import Booking from "./Booking";
 import Nav from "./Nav";
-function App() {
+import Footer from "./Footer";
+import Header from "./Header";
+
+const Routes = () => {
   return (
     <>
-      <Header />
-      <Nav />
-      <Main />
-      <Footer />
+      <Route path="/" exact component={Home} />
+      <Route path="/booking" component={Booking} />
     </>
   );
-}
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <Nav />
+      <Routes />
+      <Footer />
+    </Router>
+  );
+};
 
 export default App;

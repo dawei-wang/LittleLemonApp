@@ -1,171 +1,86 @@
-import React from "react";
-import { Formik, Form, useField } from "formik";
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-const MyTextInput = ({ label, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input>. We can use field meta to show an error
-  // message if the field is invalid and it has been touched (i.e. visited)
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
+const BookingForm = () => {
+  const [availableTimes, setAvailableTimes] = useState([]);
 
-const MyCheckbox = ({ children, ...props }) => {
-  // React treats radios and checkbox inputs differently other input types, select, and textarea.
-  // Formik does this too! When you specify `type` to useField(), it will
-  // return the correct bag of props for you -- a `checked` prop will be included
-  // in `field` alongside `name`, `value`, `onChange`, and `onBlur`
-  const [field, meta] = useField({ ...props, type: "checkbox" });
-  return (
-    <div>
-      <label className="checkbox-input">
-        <input type="checkbox" {...field} {...props} />
-        {children}
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </div>
-  );
-};
+  useEffect(() => {
+    const times = [];
+    for (let i = 17; i <= 22; i++) {
+      times.push(`${i}:00`);
+    }
+    setAvailableTimes(times);
+  }, []);
 
-const MySelect = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
   return (
-    <div>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <select {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </div>
-  );
-};
-
-// And now we can use these
-function BookingForm() {
-  return (
-    <>
-      <h1>Book A Table</h1>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          acceptedTerms: false, // added for our checkbox
-          date: "",
-          time: "",
-          guests: "",
-        }}
-        validationSchema={Yup.object({
-          firstName: Yup.string()
-            .max(15, "Must be 15 characters or less")
-            .required("Required"),
-          lastName: Yup.string()
-            .max(20, "Must be 20 characters or less")
-            .required("Required"),
-          email: Yup.string()
-            .email("Invalid email address")
-            .required("Required"),
-          acceptedTerms: Yup.boolean()
-            .required("Required")
-            .oneOf([true], "You must accept the terms and conditions."),
-          time: Yup.string()
-            .oneOf(
-              ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
-              "Invalid Time"
-            )
-            .required("Required"),
-          occasion: Yup.string()
-            .oneOf(
-              ["Birthday", "Anniversary", "Graduation"],
-              "Invalid Occasion"
-            )
-            .required("Required"),
-          guests: Yup.string()
-            .oneOf(
-              ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-              "Invalid Number of Guests"
-            )
-            .required("Required"),
-        })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
+    <Formik
+      initialValues={{
+        date: "",
+        time: "",
+        guests: "",
+        occasion: "",
+      }}
+      validationSchema={Yup.object({
+        date: Yup.string().required("Required"),
+        time: Yup.string().required("Required"),
+        guests: Yup.number()
+          .required("Required")
+          .max(10, "Maximum of 10 guests allowed"),
+        occasion: Yup.string().required("Required"),
+      })}
+      onSubmit={(values) => {
+        console.log(values);
+        alert("Reservation successful!");
+      }}
+    >
+      {({ errors, touched }) => (
         <Form>
-          <MyTextInput
-            label="First Name"
-            name="firstName"
-            type="text"
-            placeholder="Jane"
-          />
-
-          <MyTextInput
-            label="Last Name"
-            name="lastName"
-            type="text"
-            placeholder="Doe"
-          />
-
-          <MyTextInput
-            label="Email Address"
-            name="email"
-            type="email"
-            placeholder="jane@formik.com"
-          />
-
-          <MySelect label="Time" name="time">
-            <option value="">Select a tine</option>
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
-            <option value="21:00">21:00</option>
-            <option value="22:00">22:00</option>
-          </MySelect>
-
-          <MySelect label="Occasion" name="occasion">
-            <option value="">Select an occasion</option>
-            <option value="Birthday">Birthday</option>
-            <option value="Anniversary">Anniversary</option>
-            <option value="Graduation">Graduation</option>
-          </MySelect>
-
-          <MySelect label="Guests" name="guests">
-            <option value="">Select the number of guests</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </MySelect>
-
-          <MyCheckbox name="acceptedTerms">
-            I accept the terms and conditions
-          </MyCheckbox>
-
+          <label>
+            Reservation Date:
+            <Field type="date" name="date" />
+            {errors.date && touched.date ? <div>{errors.date}</div> : null}
+          </label>
+          <br />
+          <label>
+            Reservation Time:
+            <Field as="select" name="time">
+              <option value="">Select a time</option>
+              {availableTimes.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </Field>
+            {errors.time && touched.time ? <div>{errors.time}</div> : null}
+          </label>
+          <br />
+          <label>
+            Number of Guests:
+            <Field type="number" name="guests" />
+            {errors.guests && touched.guests ? (
+              <div>{errors.guests}</div>
+            ) : null}
+          </label>
+          <br />
+          <label>
+            Occasion:
+            <Field as="select" name="occasion">
+              <option value="">Select an occasion</option>
+              <option value="birthday">Birthday</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="graduation">Graduation</option>
+            </Field>
+            {errors.occasion && touched.occasion ? (
+              <div>{errors.occasion}</div>
+            ) : null}
+          </label>
+          <br />
           <button type="submit">Submit</button>
         </Form>
-      </Formik>
-    </>
+      )}
+    </Formik>
   );
-}
+};
 
 export default BookingForm;
