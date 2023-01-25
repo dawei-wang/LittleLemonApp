@@ -1,28 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Booking from "./Booking";
-import Nav from "./Nav";
-import Footer from "./Footer";
-import Header from "./Header";
-
-const Routes = () => {
-  return (
-    <>
-      <Route path="/" exact component={Home} />
-      <Route path="/booking" component={Booking} />
-    </>
-  );
-};
+// import Nav from "./Nav";
+// import Footer from "./Footer";
+// import Header from "./Header";
 
 const App = () => {
   return (
-    <Router>
-      <Header />
-      <Nav />
-      <Routes />
-      <Footer />
-    </Router>
+    <Routes>
+      <Route>
+        {/* <Header />
+        <Nav /> */}
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/booking" element={<Booking />}></Route>
+        {/* <Footer /> */}
+      </Route>
+    </Routes>
   );
 };
 
