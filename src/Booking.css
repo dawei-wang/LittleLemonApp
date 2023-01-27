@@ -1,0 +1,88 @@
+.booking {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.booking h1 {
+  font-family: "Markazi";
+  font-size: 64px;
+  font-weight: medium;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.booking-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-label {
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-submit {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.form-submit:hover {
+  background-color: #45a049;
+}
+
+.form-error {
+  color: orange;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.form-success {
+  color: blue;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.form-disabled {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.form-disabled:hover {
+  background-color: #ccc;
+}
