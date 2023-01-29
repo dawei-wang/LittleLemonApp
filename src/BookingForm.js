@@ -4,14 +4,32 @@ import * as Yup from "yup";
 
 const BookingForm = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
     const times = [];
     for (let i = 17; i <= 22; i++) {
-      times.push(`${i}:00`);
+      for (let j = 0; j < 60; j += 15) {
+        times.push(`${("0" + i).slice(-2)}:${("0" + j).slice(-2)}`);
+      }
     }
     setAvailableTimes(times);
   }, []);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    const randomIndexes = [];
+    while (randomIndexes.length < 5) {
+      const randomIndex = Math.floor(Math.random() * availableTimes.length);
+      if (!randomIndexes.includes(randomIndex)) {
+        randomIndexes.push(randomIndex);
+      }
+    }
+    const newAvailableTimes = randomIndexes.map(
+      (index) => availableTimes[index]
+    );
+    setAvailableTimes(newAvailableTimes);
+  };
 
   return (
     <Formik
@@ -29,16 +47,22 @@ const BookingForm = () => {
           .max(10, "Maximum of 10 guests allowed"),
         occasion: Yup.string().required("Required"),
       })}
-      onSubmit={(values) => {
+      onSubmit={(values, { setSubmitting }) => {
         console.log(values);
         alert("Reservation successful!");
+        setSubmitting(false);
       }}
     >
       {({ errors, touched }) => (
         <Form>
           <label>
             Reservation Date:
-            <Field type="date" name="date" />
+            <Field
+              type="date"
+              name="date"
+              value={selectedDate}
+              onChange={(e) => handleDateChange(e.target.value)}
+            />
             {errors.date && touched.date ? <div>{errors.date}</div> : null}
           </label>
           <br />
