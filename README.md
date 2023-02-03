@@ -17,6 +17,8 @@ Building the **landing page** and the **reservations page** of the little lemon 
 
 - react-router-dom
 - Meta front-end table-booking API
+- Formik to create the form
+- YUP for form validation
 
 ## Install and Run:
 
