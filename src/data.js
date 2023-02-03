@@ -1,11 +1,11 @@
-const exportedObject = [
+const menudata = [
   {
     id: 1,
     title: "Greek Salad",
     description:
       "The famous greek salad of crispy lettuce, peppers, olives and our Chicag...,",
     price: 12.99,
-    coverImg: "./StirFry.png",
+    coverImg: "StirFry.png",
     stats: {
       rating: 5.0,
       reviewCount: 6,
@@ -19,27 +19,23 @@ const exportedObject = [
     description:
       "Our Bruschetta is made from grilled bread that has been smeared with garlic...",
     price: 7.99,
-    coverImg: "./Brushetta.png",
+    coverImg: "Brushetta.png",
     stats: {
       rating: 5.0,
       reviewCount: 30,
     },
-    location: "Online",
-    openSpots: 27,
   },
   {
     id: 3,
     title: "Grilled Fish",
     description: "Lorem ipsum doler sit amet... ",
     price: 50,
-    coverImg: "./Seafood.png",
+    coverImg: "Seafood.png",
     stats: {
       rating: 4.8,
       reviewCount: 2,
     },
-    location: "Norway",
-    openSpots: 3,
   },
 ];
 
-export default exportedObject;
+export default menudata;

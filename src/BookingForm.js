@@ -26,6 +26,7 @@ const BookingForm = () => {
         time: Yup.string().required("Required"),
         guests: Yup.number()
           .required("Required")
+          .min(1, "Minimum of 1 guest required")
           .max(10, "Maximum of 10 guests allowed"),
         occasion: Yup.string().required("Required"),
       })}
