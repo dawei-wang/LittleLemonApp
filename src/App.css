@@ -298,6 +298,8 @@ footer {
   color: #ffffff;
   padding-bottom: 1rem;
   margin-top: -1.4rem;
+  width: 100%;
+  bottom: 0; /* stick to bottom */
 }
 
 footer > menu {
@@ -325,6 +327,11 @@ footer > menu {
 
 .footer-links > a:hover,
 .footer-links > Link:hover {
+  background-color: #495e57;
+  text-decoration: underline;
+}
+
+.footer-links > Link:focus {
   background-color: #495e57;
   text-decoration: underline;
 }
